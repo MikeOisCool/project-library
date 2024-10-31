@@ -8,7 +8,17 @@
 
 'use strict';
 
-let books = []
+let books = [{
+  _id: '1',
+  title: 'hello',
+  comments:['best book','good to read']
+},
+{
+  _id: '2',
+  title: 'hello 2',
+  comments:['best book','good to read']
+}
+]
 
 
 module.exports = function (app) {
@@ -55,7 +65,8 @@ module.exports = function (app) {
   app.route('/api/books/:id')
     .get(function (req, res) {
       let bookid = req.params.id;
-      let book = books.find(b => b._id === bookid)
+      // console.log('bokks:',books, bookid, '<bookid')
+      let book = books.find(b => b._id === (bookid))
       if (!book) return res.send('no book exists')
 
       //json res format: {"_id": bookid, "title": book_title, "comments": [comment,comment,...]}
@@ -69,7 +80,7 @@ module.exports = function (app) {
     .post(function (req, res) {
       let bookid = req.params.id;
       let comment = req.body.comment;
-      console.log(bookid, comment)
+      // console.log(bookid, comment)
       let book = books.find(b => b._id === bookid)
       if (!book) return res.send('no book exists')
       if (!comment) return res.send('missing required field comment')
